@@ -4,12 +4,12 @@ Analytics on RBI Electronic Payment Data
 # Goals
 * Analyze trends of growth in electronic payment over the last 7 years
 * Do comparitive study across 
-⋅⋅* Public Vs Private Sector
-⋅⋅* PIndian Banks vs Foreign Banks
-⋅⋅* Top 5 banks (leading in number of electronic transactions)
-⋅⋅* Top 5 banks (leading in value of electronic transactions)
-⋅⋅* Bottom 5 banks (leading in number of electronic transactions)
-⋅⋅* Bottom 5 banks (leading in value of electronic transactions)
+ * Public Vs Private Sector
+ * PIndian Banks vs Foreign Banks
+ * Top 5 banks (leading in number of electronic transactions)
+ * Top 5 banks (leading in value of electronic transactions)
+ * Bottom 5 banks (leading in number of electronic transactions)
+ * Bottom 5 banks (leading in value of electronic transactions)
 
 # File Formats 
 ## NEFT Sheet format
