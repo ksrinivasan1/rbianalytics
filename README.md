@@ -8,8 +8,8 @@ Analytics on RBI Electronic Payment Data
  * PIndian Banks vs Foreign Banks
  * Top 5 banks (leading in number of electronic transactions)
  * Top 5 banks (leading in value of electronic transactions)
- * Bottom 5 banks (leading in number of electronic transactions)
- * Bottom 5 banks (leading in value of electronic transactions)
+ * Bottom 5 banks (lowest in number of electronic transactions)
+ * Bottom 5 banks (lowest in value of electronic transactions)
 
 # File Formats 
 ## NEFT Sheet format
