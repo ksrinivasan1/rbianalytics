@@ -1,0 +1,13 @@
+--2016-12-03 17:40:40--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/NREDOCT1110.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 105472 (103K) [application/vnd.ms-excel]
+Saving to: 'NREDOCT1110.xls'
+
+     0K .......... .......... .......... .......... .......... 48%  610K 0s
+    50K .......... .......... .......... .......... .......... 97% 1021K 0s
+   100K ...                                                   100% 60.0K=0.1s
+
+2016-12-03 17:40:40 (787 KB/s) - 'NREDOCT1110.xls' saved [105472/105472]
+

@@ -1,0 +1,13 @@
+--2016-12-03 17:40:33--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/IRTGSDFeb09.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 105472 (103K) [application/vnd.ms-excel]
+Saving to: 'IRTGSDFeb09.xls'
+
+     0K .......... .......... .......... .......... .......... 48%  634K 0s
+    50K .......... .......... .......... .......... .......... 97%  966K 0s
+   100K ...                                                   100% 60.0K=0.1s
+
+2016-12-03 17:40:34 (789 KB/s) - 'IRTGSDFeb09.xls' saved [105472/105472]
+

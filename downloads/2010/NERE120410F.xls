@@ -1,0 +1,13 @@
+--2016-12-03 17:40:43--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/NERE120410F.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 105984 (104K) [application/vnd.ms-excel]
+Saving to: 'NERE120410F.xls'
+
+     0K .......... .......... .......... .......... .......... 48%  399K 0s
+    50K .......... .......... .......... .......... .......... 96%  416K 0s
+   100K ...                                                   100% 70.0K=0.2s
+
+2016-12-03 17:40:43 (422 KB/s) - 'NERE120410F.xls' saved [105984/105984]
+

@@ -1,0 +1,13 @@
+--2016-12-03 17:41:04--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/BWD061213FS.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 152576 (149K) [application/vnd.ms-excel]
+Saving to: 'BWD061213FS.xls'
+
+     0K .......... .......... .......... .......... .......... 33%  576K 0s
+    50K .......... .......... .......... .......... .......... 67%  860K 0s
+   100K .......... .......... .......... .......... ......... 100% 1.06M=0.2s
+
+2016-12-03 17:41:04 (784 KB/s) - 'BWD061213FS.xls' saved [152576/152576]
+

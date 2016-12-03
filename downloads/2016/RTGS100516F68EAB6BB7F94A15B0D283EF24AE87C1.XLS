@@ -1,0 +1,13 @@
+--2016-12-03 17:41:34--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/RTGS100516F68EAB6BB7F94A15B0D283EF24AE87C1.XLS
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 142336 (139K) [application/vnd.ms-excel]
+Saving to: 'RTGS100516F68EAB6BB7F94A15B0D283EF24AE87C1.XLS'
+
+     0K .......... .......... .......... .......... .......... 35%  634K 0s
+    50K .......... .......... .......... .......... .......... 71% 1013K 0s
+   100K .......... .......... .......... .........            100% 1.11M=0.2s
+
+2016-12-03 17:41:34 (855 KB/s) - 'RTGS100516F68EAB6BB7F94A15B0D283EF24AE87C1.XLS' saved [142336/142336]
+

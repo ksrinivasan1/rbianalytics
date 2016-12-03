@@ -1,0 +1,6 @@
+--2016-12-03 17:41:12--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/F.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2016-12-03 17:41:12 ERROR 404: Not Found.
+

@@ -1,0 +1,13 @@
+--2016-12-03 17:41:34--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/NR0316029C64E7D3144095BC3ECBB5995E3270.XLS
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 144384 (141K) [application/vnd.ms-excel]
+Saving to: 'NR0316029C64E7D3144095BC3ECBB5995E3270.XLS'
+
+     0K .......... .......... .......... .......... .......... 35% 16.9K 5s
+    50K .......... .......... .......... .......... .......... 70%  107K 1s
+   100K .......... .......... .......... .......... .         100%  519K=3.5s
+
+2016-12-03 17:41:39 (40.3 KB/s) - 'NR0316029C64E7D3144095BC3ECBB5995E3270.XLS' saved [144384/144384]
+

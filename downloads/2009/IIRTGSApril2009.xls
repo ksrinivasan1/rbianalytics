@@ -1,0 +1,13 @@
+--2016-12-03 17:40:32--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/IIRTGSApril2009.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 111104 (108K) [application/vnd.ms-excel]
+Saving to: 'IIRTGSApril2009.xls'
+
+     0K .......... .......... .......... .......... .......... 46%  623K 0s
+    50K .......... .......... .......... .......... .......... 92% 1015K 0s
+   100K ........                                              100% 2.08M=0.1s
+
+2016-12-03 17:40:33 (813 KB/s) - 'IIRTGSApril2009.xls' saved [111104/111104]
+

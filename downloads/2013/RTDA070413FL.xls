@@ -1,0 +1,13 @@
+--2016-12-03 17:41:11--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/RTDA070413FL.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 149504 (146K) [application/vnd.ms-excel]
+Saving to: 'RTDA070413FL.xls'
+
+     0K .......... .......... .......... .......... .......... 34%  631K 0s
+    50K .......... .......... .......... .......... .......... 68%  967K 0s
+   100K .......... .......... .......... .......... ......    100% 1.18M=0.2s
+
+2016-12-03 17:41:11 (864 KB/s) - 'RTDA070413FL.xls' saved [149504/149504]
+

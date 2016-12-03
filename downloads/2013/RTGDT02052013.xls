@@ -1,0 +1,14 @@
+--2016-12-03 17:41:10--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/RTGDT02052013.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 157696 (154K) [application/vnd.ms-excel]
+Saving to: 'RTGDT02052013.xls'
+
+     0K .......... .......... .......... .......... .......... 32%  636K 0s
+    50K .......... .......... .......... .......... .......... 64%  986K 0s
+   100K .......... .......... .......... .......... .......... 97% 1.07M 0s
+   150K ....                                                  100% 1.85M=0.2s
+
+2016-12-03 17:41:11 (869 KB/s) - 'RTGDT02052013.xls' saved [157696/157696]
+

@@ -1,0 +1,13 @@
+--2016-12-03 17:41:29--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/NFT150615AECACFB17B414B669358F2CF714709E7.XLS
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 145920 (142K) [application/vnd.ms-excel]
+Saving to: 'NFT150615AECACFB17B414B669358F2CF714709E7.XLS'
+
+     0K .......... .......... .......... .......... .......... 35%  633K 0s
+    50K .......... .......... .......... .......... .......... 70% 1020K 0s
+   100K .......... .......... .......... .......... ..        100% 1.12M=0.2s
+
+2016-12-03 17:41:29 (864 KB/s) - 'NFT150615AECACFB17B414B669358F2CF714709E7.XLS' saved [145920/145920]
+

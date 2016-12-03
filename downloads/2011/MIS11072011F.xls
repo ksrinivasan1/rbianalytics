@@ -1,0 +1,13 @@
+--2016-12-03 17:40:50--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/MIS11072011F.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 122368 (120K) [application/vnd.ms-excel]
+Saving to: 'MIS11072011F.xls'
+
+     0K .......... .......... .......... .......... .......... 41%  294K 0s
+    50K .......... .......... .......... .......... .......... 83%  393K 0s
+   100K .......... .........                                  100%  627K=0.3s
+
+2016-12-03 17:40:51 (364 KB/s) - 'MIS11072011F.xls' saved [122368/122368]
+

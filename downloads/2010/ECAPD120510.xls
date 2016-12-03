@@ -1,0 +1,13 @@
+--2016-12-03 17:40:42--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/ECAPD120510.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 114688 (112K) [application/vnd.ms-excel]
+Saving to: 'ECAPD120510.xls'
+
+     0K .......... .......... .......... .......... .......... 44%  642K 0s
+    50K .......... .......... .......... .......... .......... 89% 1013K 0s
+   100K .......... ..                                         100% 1.41M=0.1s
+
+2016-12-03 17:40:43 (826 KB/s) - 'ECAPD120510.xls' saved [114688/114688]
+

@@ -1,0 +1,13 @@
+--2016-12-03 17:41:15--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/NEJL11082014.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 151040 (148K) [application/vnd.ms-excel]
+Saving to: 'NEJL11082014.xls'
+
+     0K .......... .......... .......... .......... .......... 33%  171K 1s
+    50K .......... .......... .......... .......... .......... 67%  664K 0s
+   100K .......... .......... .......... .......... .......   100% 1.13M=0.4s
+
+2016-12-03 17:41:19 (360 KB/s) - 'NEJL11082014.xls' saved [151040/151040]
+

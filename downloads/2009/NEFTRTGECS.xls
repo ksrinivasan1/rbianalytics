@@ -1,0 +1,13 @@
+--2016-12-03 17:40:34--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/NEFTRTGECS.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 112640 (110K) [application/vnd.ms-excel]
+Saving to: 'NEFTRTGECS.xls'
+
+     0K .......... .......... .......... .......... .......... 45%  636K 0s
+    50K .......... .......... .......... .......... .......... 90% 1007K 0s
+   100K ..........                                            100% 1.85M=0.1s
+
+2016-12-03 17:40:34 (824 KB/s) - 'NEFTRTGECS.xls' saved [112640/112640]
+

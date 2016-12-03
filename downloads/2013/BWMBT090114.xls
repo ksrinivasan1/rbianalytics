@@ -1,0 +1,13 @@
+--2016-12-03 17:41:03--  https://rbidocs.rbi.org.in/rdocs/NEFT/DOCs/BWMBT090114.xls
+Resolving rbidocs.rbi.org.in... 104.16.89.135, 104.16.88.135, 104.16.87.135, ...
+Connecting to rbidocs.rbi.org.in|104.16.89.135|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 135168 (132K) [application/vnd.ms-excel]
+Saving to: 'BWMBT090114.xls'
+
+     0K .......... .......... .......... .......... .......... 37%  626K 0s
+    50K .......... .......... .......... .......... .......... 75%  758K 0s
+   100K .......... .......... .......... ..                   100% 1.04M=0.2s
+
+2016-12-03 17:41:04 (751 KB/s) - 'BWMBT090114.xls' saved [135168/135168]
+
