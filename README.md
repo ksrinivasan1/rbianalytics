@@ -1,10 +1,10 @@
 # rbianalytics
 Analytics on RBI Electronic Payment Data
 
-NEFT Sheet format:
+## NEFT Sheet format:
 Bank	OutwardTransactions	OutwardValueMillions	InwardTransactions	InwardValueMillions	Month	Year
 
-RTGS Sheet format:
+## RTGS Sheet format:
 Bank	InwardInterbankVolume	InwardCustomerVoAlume	InwardTotalCustomerVolume	InwardPctVolume	InwardInterbankValue	InwardCustomerValue	InwardTotalCustomerValue	InwardPctValue	OutwardInterbankVolume	OutwardCustomerVolume	OutwardTotalCustomerVolume	OutwardPctVolume	OutwardInterbankValue	OutwardCustomerValue	OutwardTotalCustomerValue	OutwardPctValue	Month	Year
 
 
