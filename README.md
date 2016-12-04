@@ -20,3 +20,8 @@ Bank	InwardInterbankVolume	InwardCustomerVoAlume	InwardTotalCustomerVolume	Inwar
 
 ## Mobile Banking format
 Bank	Transactions	ValueInThousands	Month	Year
+
+
+# Pre-Requisites
+* Install git command line client (https://git-scm.com/download/win) 
+* Alternatively, github desktop (desktop.github.com) or tortoise git (https://tortoisegit.org/download/)
