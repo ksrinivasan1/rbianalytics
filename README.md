@@ -5,7 +5,7 @@ Analytics on RBI Electronic Payment Data
 * Analyze trends of growth in electronic payment over the last 7 years
 * Do comparitive study across 
  * Public Vs Private Sector
- * PIndian Banks vs Foreign Banks
+ * Indian Banks vs Foreign Banks
  * Top 5 banks (leading in number of electronic transactions)
  * Top 5 banks (leading in value of electronic transactions)
  * Bottom 5 banks (lowest in number of electronic transactions)
