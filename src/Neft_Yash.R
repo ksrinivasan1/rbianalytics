@@ -4,45 +4,102 @@ library("car", lib.loc="C:/Users/ylondhe/Documents/R/win-library/3.3")
 
 NEFT <- read.csv('NEFT.csv', header = TRUE)
 
-hist(NEFT$InwardValueCrores, breaks = 100, main = "NEFT Inward Values crores")
+hist(NEFT$InwardValueMillions, 
+     breaks = 100,
+     main = "NEFT Inward Values millions",
+     col = colors()[30:50])
 
 # Compare transactions and value of transactions
-cor(NEFT$InwardTransactions, NEFT$InwardValueCrores)
+cor(NEFT$InwardTransactions, NEFT$InwardValueMillions)
 
-plot(NEFT$InwardTransactions, NEFT$InwardValueCrores,
+plot(NEFT$InwardTransactions, NEFT$InwardValueMillions,
      main = "Inward Trans Vs Inward Val NEFT",
      pch=0,
      xlab = "Inward Trans", ylab="Inward Value")
-lmFit <- lm(NEFT$InwardTransactions ~ NEFT$InwardValueCrores)
+lmFit <- lm(NEFT$InwardTransactions ~ NEFT$InwardValueMillions)
 abline(lmFit, col="red")
 
 
 #summary parameters
 summary(NEFT$InwardTransactions)
 sd(NEFT$InwardTransactions)
-summary(NEFT$InwardValueCrores)
+summary(NEFT$InwardValueMillions)
 summary(NEFT$OutwardTransactions)
-summary(NEFT$OutwardValueCrores)
-
-lmFit2 <- lm(NEFT$InwardTransactions ~ NEFT$InwardValueCrores)
-
+summary(NEFT$OutwardValueMillions)
 
 
 #group by banks
-InwardTransPerBank <- aggregate(NEFT$InwardTransactions ~ NEFT$Bank,
-          NEFT,
-          FUN = sum)
-BankData <- c()
-numBanks <- nrow(InwardTransPerBank)
+InwardTransPerBank <- aggregate(. ~ NEFT$Bank,  NEFT, FUN = sum)
+InwardTransPerBank$Bank <- NULL
+InwardTransPerBank$Month <- NULL
+InwardTransPerBank$Year <- NULL
+#colnames(InwardTransPerBank) <- c("Bank", ....)
 
-colnames(InwardTransPerBank) <- c("Bank", "Total_InwardTransactions")
-
-#InwardTransPerBank <- aggregate(. ~ NEFT$Bank,  NEFT, FUN = sum)
-
-qqPlot(InwardTransPerBank$Total_InwardTransactions)
-
-
-plot(InwardTransPerBank$Bank, InwardTransPerBank$Total_InwardTransactions,
-     main = "Inward Trans Vs Inward Val NEFT",
+plot(InwardTransPerBank$OutwardTransactions, InwardTransPerBank$OutwardValueMillions,
+     main = "Out Trans Vs Out Val NEFT",
      pch=0,
-     xlab = "Bank", ylab="Inward Value")
+     xlab = "Out Trans", ylab="Out Value")
+
+lmFit2 <- lm(InwardTransPerBank$OutwardTransactions  ~ InwardTransPerBank$OutwardValueMillions)
+abline(lmFit2, col="red")
+
+cor(InwardTransPerBank$OutwardTransactions, InwardTransPerBank$OutwardValueMillions)
+
+#avg value per transaction
+avgInVals <- numeric()
+avgOutVals <- numeric()
+for(i in 1:nrow(InwardTransPerBank)){
+  curRow <- InwardTransPerBank[i,]
+  avgOutVals[i] <- (curRow[3]/curRow[2])*1000000
+  avgInVals[i] <- (curRow[5]/curRow[4])*1000000
+}
+
+InwardTransPerBank$AvgOutTransValue <- as.numeric(avgOutVals)
+InwardTransPerBank$AvgInTransValue <- as.numeric(avgInVals)
+
+
+
+#find the outliers and draw qqPlot and hist
+summary(InwardTransPerBank$AvgOutTransValue)
+
+outQ1 <- quantile(InwardTransPerBank$AvgOutTransValue, probs = (0.25))
+outQ3 <- quantile(InwardTransPerBank$AvgOutTransValue, probs = (0.75))
+
+  
+outIQR <- IQR(InwardTransPerBank$AvgOutTransValue)
+
+avgOutTransValueMinusOutliers <- subset(InwardTransPerBank$AvgOutTransValue, 
+                        InwardTransPerBank$AvgOutTransValue > (outQ1-1.5*outIQR)
+                        &    
+                        InwardTransPerBank$AvgOutTransValue < (outQ3+1.5*outIQR))
+
+hist(avgOutTransValueMinusOutliers,
+     breaks = 20,
+     col = colors()[30:50])
+
+par(mfrow=c(2,2))
+qqPlot(InwardTransPerBank$AvgOutTransValue,
+       main = "Avg out trans value with outliers"
+       )
+qqPlot(avgOutTransValueMinusOutliers, main = "Avg out trans value without outliers")
+cat("Skewness wihout is ", skewness(InwardTransPerBank$AvgOutTransValue))
+cat("Skewness is ", skewness(avgOutTransValueMinusOutliers))
+
+#group by month_year and plot bargraph
+#may be converted to year only
+NEFT$MonthYear <- as.character(interaction(NEFT$Month, NEFT$Year, sep ="_")) 
+
+TransPerMonthYear <- aggregate(NEFT$OutwardValueMillions ~ NEFT$MonthYear,  NEFT, FUN = sum)
+bp <- barplot(TransPerMonthYear$`NEFT$OutwardValueMillions`,
+        main = "Plot of trans per month ",
+        xlab = "Month-Year",
+        ylab = "Outbound Transactions",
+        col = rainbow(20))
+
+#text(bp,NEFT$Month, cex=1)
+for(i in 1:nrow(TransPerMonthYear)){
+  labels[i] <- TransPerMonthYear[i,1]
+}
+
+text(bp,par("usr")[3],labels = labels, srt = 45, adj = 1.2, cex=0.75, xpd = TRUE)
+
