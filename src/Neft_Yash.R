@@ -50,8 +50,18 @@ avgInVals <- numeric()
 avgOutVals <- numeric()
 for(i in 1:nrow(InwardTransPerBank)){
   curRow <- InwardTransPerBank[i,]
-  avgOutVals[i] <- (curRow[3]/curRow[2])*1000000
-  avgInVals[i] <- (curRow[5]/curRow[4])*1000000
+  if(curRow[2]==0){
+    avgOutVals[i] <- 0
+  } else {
+    avgOutVals[i] <- (curRow[3]/curRow[2])*1000000
+  }
+  
+  if(curRow[4]==0){
+    avgInVals[i] <- 0
+  } else {
+    avgInVals[i] <- (curRow[5]/curRow[4])*1000000
+  }
+  
 }
 
 InwardTransPerBank$AvgOutTransValue <- as.numeric(avgOutVals)
@@ -77,13 +87,12 @@ hist(avgOutTransValueMinusOutliers,
      breaks = 20,
      col = colors()[30:50])
 
-par(mfrow=c(2,2))
 qqPlot(InwardTransPerBank$AvgOutTransValue,
        main = "Avg out trans value with outliers"
        )
 qqPlot(avgOutTransValueMinusOutliers, main = "Avg out trans value without outliers")
-cat("Skewness wihout is ", skewness(InwardTransPerBank$AvgOutTransValue))
-cat("Skewness is ", skewness(avgOutTransValueMinusOutliers))
+cat("\n Skewness with outliers is ", skewness(InwardTransPerBank$AvgOutTransValue))
+cat("\n Skewness without outliers is ", skewness(avgOutTransValueMinusOutliers))
 
 #group by month_year and plot bargraph
 #may be converted to year only
@@ -91,15 +100,16 @@ NEFT$MonthYear <- as.character(interaction(NEFT$Month, NEFT$Year, sep ="_"))
 
 TransPerMonthYear <- aggregate(NEFT$OutwardValueMillions ~ NEFT$MonthYear,  NEFT, FUN = sum)
 bp <- barplot(TransPerMonthYear$`NEFT$OutwardValueMillions`,
-        main = "Plot of trans per month ",
+        main = "Plot of out trans per month-year ",
         xlab = "Month-Year",
         ylab = "Outbound Transactions",
         col = rainbow(20))
 
+xLabel <- c()
 #text(bp,NEFT$Month, cex=1)
 for(i in 1:nrow(TransPerMonthYear)){
-  labels[i] <- TransPerMonthYear[i,1]
+  xLabel[i] <- TransPerMonthYear[i,1]
 }
 
-text(bp,par("usr")[3],labels = labels, srt = 45, adj = 1.2, cex=0.75, xpd = TRUE)
+text(bp,par("usr")[3],labels = xLabel, srt = 45, adj = 1.2, cex=0.75, xpd = TRUE)
 
