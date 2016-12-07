@@ -1,0 +1,120 @@
+library(moments)
+library(car)
+#library("moments", lib.loc="C:/Users/ylondhe/Documents/R/win-library/3.3")
+#library("car", lib.loc="C:/Users/ylondhe/Documents/R/win-library/3.3")
+setwd("/Users/ksrinivasan/Desktop/GMITE/Assignments/Statistics/final/rbianalytics/data/yearwise.new")
+
+#NEFT <- read.csv('NEFT.csv', header = TRUE)
+NEFT <- readxl::read_excel('2009.xlsx', sheet = "NEFT")
+
+hist(NEFT$InwardValueMillions, 
+     breaks = 100,
+     main = "NEFT Inward Values millions",
+     col = colors()[30:50])
+
+# Compare transactions and value of transactions
+# this doesnt give us too much. Maybe we can derive average transaction sizes.
+cor(NEFT$InwardTransactions, NEFT$InwardValueMillions)
+
+# basically says how transactions were distributed ?
+plot(NEFT$InwardTransactions, NEFT$InwardValueMillions,
+     main = "Inward Trans Vs Inward Val NEFT",
+     pch=0,
+     xlab = "Inward Trans", ylab="Inward Value")
+
+lmFit <- lm(NEFT$InwardTransactions ~ NEFT$InwardValueMillions)
+abline(lmFit, col="red")
+
+
+#summary parameters
+summary(NEFT$InwardTransactions)
+sd(NEFT$InwardTransactions)
+summary(NEFT$InwardValueMillions)
+summary(NEFT$OutwardTransactions)
+summary(NEFT$OutwardValueMillions)
+
+
+#group by banks
+InwardTransPerBank <- aggregate(. ~ NEFT$Bank,  NEFT, FUN = sum)
+InwardTransPerBank$Bank <- NULL
+InwardTransPerBank$Month <- NULL
+InwardTransPerBank$Year <- NULL
+#colnames(InwardTransPerBank) <- c("Bank", ....)
+
+plot(InwardTransPerBank$OutwardTransactions, InwardTransPerBank$OutwardValueMillions,
+     main = "Out Trans Vs Out Val NEFT",
+     pch=0,
+     xlab = "Out Trans", ylab="Out Value")
+
+lmFit2 <- lm(InwardTransPerBank$OutwardTransactions  ~ InwardTransPerBank$OutwardValueMillions)
+abline(lmFit2, col="red")
+
+cor(InwardTransPerBank$OutwardTransactions, InwardTransPerBank$OutwardValueMillions)
+
+#KS : Need to understand this better ? What is the intent ?
+#avg value per transaction
+avgInVals <- numeric()
+avgOutVals <- numeric()
+for(i in 1:nrow(InwardTransPerBank)){
+  curRow <- InwardTransPerBank[i,]
+  if(curRow[2]==0){
+    avgOutVals[i] <- 0
+  } else {
+    avgOutVals[i] <- (curRow[3]/curRow[2])*1000000
+  }
+  
+  if(curRow[4]==0){
+    avgInVals[i] <- 0
+  } else {
+    avgInVals[i] <- (curRow[5]/curRow[4])*1000000
+  }
+  
+}
+
+InwardTransPerBank$AvgOutTransValue <- as.numeric(avgOutVals)
+InwardTransPerBank$AvgInTransValue <- as.numeric(avgInVals)
+
+#find the outliers and draw qqPlot and hist
+summary(InwardTransPerBank$AvgOutTransValue)
+
+outQ1 <- quantile(InwardTransPerBank$AvgOutTransValue, probs = (0.25))
+outQ3 <- quantile(InwardTransPerBank$AvgOutTransValue, probs = (0.75))
+
+  
+outIQR <- IQR(InwardTransPerBank$AvgOutTransValue)
+
+avgOutTransValueMinusOutliers <- subset(InwardTransPerBank$AvgOutTransValue, 
+                        InwardTransPerBank$AvgOutTransValue > (outQ1-1.5*outIQR)
+                        &    
+                        InwardTransPerBank$AvgOutTransValue < (outQ3+1.5*outIQR))
+
+hist(avgOutTransValueMinusOutliers,
+     breaks = 20,
+     col = colors()[30:50])
+
+qqPlot(InwardTransPerBank$AvgOutTransValue,
+       main = "Avg out trans value with outliers"
+       )
+qqPlot(avgOutTransValueMinusOutliers, main = "Avg out trans value without outliers")
+cat("\n Skewness with outliers is ", skewness(InwardTransPerBank$AvgOutTransValue))
+cat("\n Skewness without outliers is ", skewness(avgOutTransValueMinusOutliers))
+
+#group by month_year and plot bargraph
+#may be converted to year only
+NEFT$MonthYear <- as.character(interaction(NEFT$Month, NEFT$Year, sep ="_")) 
+
+TransPerMonthYear <- aggregate(NEFT$OutwardValueMillions ~ NEFT$MonthYear,  NEFT, FUN = sum)
+bp <- barplot(TransPerMonthYear$`NEFT$OutwardValueMillions`,
+        main = "Plot of out trans per month-year ",
+        xlab = "Month-Year",
+        ylab = "Outbound Transactions",
+        col = rainbow(20))
+
+xLabel <- c()
+#text(bp,NEFT$Month, cex=1)
+for(i in 1:nrow(TransPerMonthYear)){
+  xLabel[i] <- TransPerMonthYear[i,1]
+}
+
+text(bp,par("usr")[3],labels = xLabel, srt = 45, adj = 1.2, cex=0.75, xpd = TRUE)
+
