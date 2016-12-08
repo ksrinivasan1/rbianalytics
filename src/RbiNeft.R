@@ -7,6 +7,9 @@
 
 rm(list = ls())     # clear objects 
 
+# Month order
+monthNames = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
 setwd("/Users/ksrinivasan/Desktop/GMITE/Assignments/Statistics/final/rbianalytics/")
 
 # load up the bank classifications from working directory
