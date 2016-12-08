@@ -39,6 +39,6 @@ neftData$AvgTxnVal    <- avgTxnValue
 
 # join the bank data with classifications so we can get clean bank name and type
 neftDataMergedUnclean <- merge(neftData, bankClsfn, by="Bank")
-neftDataMerged <- subset(neftDataMergedUnclean, neftDataMergedUnclean$Type!="NA")
+neftDataMerged <- subset(neftDataMergedUnclean, neftDataMergedUnclean$Sector!="NA")
 head(neftDataMerged)
 
