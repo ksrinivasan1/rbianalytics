@@ -37,6 +37,34 @@ myPlot + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = mon
 #Over months
 ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns, fill=Sector)) + geom_bar(stat="sum")
 
+#################YASH STARTS ###########################
+# i think avg is better here
+# try above and then try below
+# in above since we dont have data of nov n dec, it doesnt look correct
+# average handles missing data issue.
+
+TotalTransPerMonth <- aggregate(neftDataMerged[,9:10],list(neftDataMerged$Sector, neftDataMerged$Month),sum)
+colnames(TotalTransPerMonth) <- c("Sector", "Month", "TotalTrans", "TotalTransVal")
+
+#avg transaction value per month`
+avgTransVals <- numeric()
+for(i in 1:nrow(TotalTransPerMonth)){
+  curRow <- TotalTransPerMonth[i,]
+  if(curRow[3]==0){
+    avgTransVals[i] <- 0
+  } else {
+    avgTransVals[i] <- (curRow[4]/curRow[3])*1000000
+  }
+}
+
+TotalTransPerMonth$AvgTransValue <- as.numeric(avgTransVals)
+
+ggplot2::ggplot(data=TotalTransPerMonth, aes(x=factor(Month, levels = month.abb), y=AvgTransValue, fill = Sector)) + geom_bar(stat="sum")
+
+
+################YASH ENDS ####################
+
+
 #Over months and over the years
 ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) 
 
