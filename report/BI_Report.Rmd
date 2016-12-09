@@ -1,35 +1,34 @@
-
 ---
-title: "Analysis of NEFT bank transactions - India (2009-2016)"
-author:
-        * Kartik Srinivasan (GMITE10130)
-        * Nilesh Agarwal    (GMITE10142)
-        * Surabhi Sharma    (GMITE10165)
-        * Yash Londhe       (GMITE10171)
-date: "`r format(Sys.time(), ''%d %B %Y'')`"
-widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained
+title: "Analysis of NEFT bank transactions in India (2009-2016)"
 output:
-  html_notebook:
-    toc: yes
   pdf_document:
-    highlight: tango
+    fig_caption: yes
     keep_tex: no
     number_sections: yes
     toc: yes
-  word_document:
+  html_document:
     toc: yes
 subtitle: Business Analytics (GMITE-X)
 ---
-```{r echo=FALSE, out.width='10%'}
-library(knitr)
-knitr::include_graphics("logo.png", auto_pdf = TRUE, dpi = 1024*980)
-```
+
+Prepared by:
+
+* Kartik Srinivasan (GMITE10130)
+* Nilesh Agarwal    (GMITE10142)
+* Surabhi Sharma    (GMITE10165)
+* Yash Londhe       (GMITE10171)
+
+#```{r echo=FALSE, out.width='100%'}
+#library(knitr)
+#knitr::include_graphics("logo.png", auto_pdf = TRUE, dpi = 1024*980)
+#```
+
+\pagebreak
 
 ## About the data
 
 ### Source
-The data is a list of NEFT (National Electronic Fund Transfers) transactions that was recorded by RBI in from January 2009 to October 2016. The raw data (month by month from Jan 2009 to October 2016) was collected from the RBI website ^[https://www.rbi.org.in/Scripts/NEFTView.aspx#]. 
+The data is a list of NEFT (National Electronic Fund Transfers) transactions that was recorded by RBI in from January 2009 to October 2016. The raw data (month by month from Jan 2009 to October 2016) was collected from the RBI website ^[https://www.rbi.org.in/Scripts/NEFTView.aspx]. 
 
 The monthly data was downloaded and then collated into 8 files based on year (2009.xls to 2016.xls). 
 
@@ -67,13 +66,21 @@ Numerous problems were encountered.
 
 ## Data Analysis
 
+### Sourcing the dataset
+```{r results='asis'}
+source("/Users/ksrinivasan/Desktop/GMITE/Assignments/Statistics/final/rbianalytics/src/RbiNeft.R")
+```
+
+
 ### Frequency Distribution
-```{r}
+```{r results='asis'}
+
+View(neftDataMerged)
+
 hist(neftDataMerged$InwardValueMillions, 
      breaks = 100,
      main = "NEFT Inward Values millions",
      col = colors()[30:50])
-
 ```
 
 
@@ -86,6 +93,7 @@ tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, mean)
 tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, sd)
 ```
 
+It looks like on an 
 
 ####  Transaction Value by years
 ```{r echo=TRUE}
