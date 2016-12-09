@@ -1,0 +1,106 @@
+
+---
+title: "Analysis of NEFT bank transactions - India (2009-2016)"
+author:
+        * Kartik Srinivasan (GMITE10130)
+        * Nilesh Agarwal    (GMITE10142)
+        * Surabhi Sharma    (GMITE10165)
+        * Yash Londhe       (GMITE10171)
+date: "`r format(Sys.time(), ''%d %B %Y'')`"
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained
+output:
+  html_notebook:
+    toc: yes
+  pdf_document:
+    highlight: tango
+    keep_tex: no
+    number_sections: yes
+    toc: yes
+  word_document:
+    toc: yes
+subtitle: Business Analytics (GMITE-X)
+---
+```{r echo=FALSE, out.width='10%'}
+library(knitr)
+knitr::include_graphics("logo.png", auto_pdf = TRUE, dpi = 1024*980)
+```
+
+## About the data
+
+### Source
+The data is a list of NEFT (National Electronic Fund Transfers) transactions that was recorded by RBI in from January 2009 to October 2016. The raw data (month by month from Jan 2009 to October 2016) was collected from the RBI website ^[https://www.rbi.org.in/Scripts/NEFTView.aspx#]. 
+
+The monthly data was downloaded and then collated into 8 files based on year (2009.xls to 2016.xls). 
+
+### Schema
+The data contains the following:
+
+1. Name of the bank 
+2. Outward Number of Transactions (i.e. transactions from the Bank)
+3. Outward Value of Transactions in Rs. Millions
+4. Inward Number of Transactions (i.e. transactions to the Bank)
+5. Inward Value of Transactions in Rs. Millions 
+
+Two new columns were introduced in the data set namely, Month and Year.
+
+Another Data file “Classifiication.xls” was prepared with contains the "sector" of the Bank viz Public (PSB), Private (PVT), Foreign (FOR) or Cooperative (CO-OP) as nominal variables.
+
+Using the data as structured above, a preprocessing was done on the data to make it in the desired format.
+Preprocessing is done in the "RBI_Neft.R"" file, which does the following:
+
+1. Reads the raw data files year by year
+2. Creates 3 new columns:-
+    +	MonthAndYear – Combination of Month And Year separated by space. Example: Jan 2009, July 2012, etc.
+    +	TotalTxns – Sum of the inbound number of transactions and outbound number of transactions
+    +	TotalTxnValue – Sum of the inbound value of transactions and outbound value of transactions.
+3. Creates a new column “Sector” by taking the join of the above modified dataset and the data in the “Classification.xls” file.
+4. This enhanced dataset is represented as "neftDataMerged"
+
+### Challenges
+Numerous problems were encountered.
+1. Incomplete data - data for some months were missing.
+2. Units of data were inconsistent
+3. Bank Names were inconsistent. Same banks were represented in different ways across years.
+4. RBI publishes data monthly and in a proprietary format - data had to be downloaded for each month and standardized.
+5. In order to make sense of the data, additional nominal variables (Sector) had to be stitched to the raw monthly dataset provided.
+
+## Data Analysis
+
+### Frequency Distribution
+```{r}
+hist(neftDataMerged$InwardValueMillions, 
+     breaks = 100,
+     main = "NEFT Inward Values millions",
+     col = colors()[30:50])
+
+```
+
+
+### Measures of central tendency and dispersion
+
+####  Number of transactions by years
+```{r}
+tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, summary)
+tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, mean)
+tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, sd)
+```
+
+
+####  Transaction Value by years
+```{r echo=TRUE}
+tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Year, summary)
+tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Year, mean)
+tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Year, sd)
+```
+
+
+
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
