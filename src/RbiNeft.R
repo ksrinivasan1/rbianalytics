@@ -1,7 +1,7 @@
 rm(list = ls())     # clear objects 
 
-#Set up the current working directory.
-setwd("/Users/ksrinivasan/Desktop/GMITE/Assignments/Statistics/final/rbianalytics/")
+#Set up the working directory.
+#setwd("/Users/ksrinivasan/Desktop/GMITE/Assignments/Statistics/final/rbianalytics/")
 #setwd("D:/Personal/GMITE/BI_Git/trunk")
 
 # load up the bank classifications from working directory
@@ -29,7 +29,6 @@ for(i in 1:length(neftData$OutwardTransactions)) {
 neftData$MonthAndYear <- monthAndYear
 neftData$TotalTxns    <- totalTxns
 neftData$TotalTxnVal  <- totalTxnValue
-
 # join the bank data with classifications so we can get clean bank name and type
 neftDataMerged <- merge(neftData, bankClsfn, by="Bank")
 
