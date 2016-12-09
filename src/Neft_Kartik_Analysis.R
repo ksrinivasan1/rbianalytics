@@ -1,7 +1,11 @@
 library(ggplot2)
+library(car)
+library(moments)
+
+setwd("D:/Personal/GMITE/BI_Git/trunk")
 
 #Kartik's analysis 
-#source(file = paste(workingDirectory, "/RbiNeft.R") )
+source(file = paste(getwd(), "/src/RbiNeft.R", sep = "") )
 
 # Txn Info By year
 tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Year, summary)
@@ -20,8 +24,8 @@ tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, mean)
 tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, sd)
 
 # By month
-myPlot <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns))
-myPlot + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank())
+ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000)) + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank()) + labs(x="Month", y="Total Number of Transactions in Millions")
+ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000)) + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank()) + labs(x="Month", y="Total Value of Transactions in Millions")
 
 #myPlot <- ggplot2::ggplot(data=neftDataMerged, aes(x=Month, y=TotalTxnVal))
 #myPlot + geom_point(shape=1,alpha=1/10) + facet_wrap(~Month) + theme(axis.text.x=element_blank())
@@ -35,7 +39,10 @@ myPlot + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = mon
 #ggplot2::ggplot(data=neftDataMerged, aes(x=Month, y=AvgTxnVal, fill=Type)) + geom_bar(stat="sum")
 
 #Over months
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns, fill=Sector)) + geom_bar(stat="sum")
+#by number of transactions
+ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Total Number of Transactions in Millions")
+#by value of transactions
+ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Total Value of Transactions in Millions")
 
 #################YASH STARTS ###########################
 # i think avg is better here
@@ -43,33 +50,58 @@ ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=
 # in above since we dont have data of nov n dec, it doesnt look correct
 # average handles missing data issue.
 
-TotalTransPerMonth <- aggregate(neftDataMerged[,9:10],list(neftDataMerged$Sector, neftDataMerged$Month),sum)
-colnames(TotalTransPerMonth) <- c("Sector", "Month", "TotalTrans", "TotalTransVal")
+neftTransPerSectorMonth <- aggregate(neftDataMerged[,9:10],list(neftDataMerged$Sector, neftDataMerged$Month),sum)
+colnames(neftTransPerSectorMonth) <- c("Sector", "Month", "TotalTrans", "TotalTransVal")
 
 #avg transaction value per month`
 avgTransVals <- numeric()
-for(i in 1:nrow(TotalTransPerMonth)){
-  curRow <- TotalTransPerMonth[i,]
+for(i in 1:nrow(neftTransPerSectorMonth)){
+  curRow <- neftTransPerSectorMonth[i,]
   if(curRow[3]==0){
     avgTransVals[i] <- 0
   } else {
-    avgTransVals[i] <- (curRow[4]/curRow[3])*1000000
+    avgTransVals[i] <- (curRow[4]/curRow[3])
   }
 }
 
-TotalTransPerMonth$AvgTransValue <- as.numeric(avgTransVals)
+neftTransPerSectorMonth$AvgTransValue <- as.numeric(avgTransVals)
 
-ggplot2::ggplot(data=TotalTransPerMonth, aes(x=factor(Month, levels = month.abb), y=AvgTransValue, fill = Sector)) + geom_bar(stat="sum")
+ggplot2::ggplot(data=neftTransPerSectorMonth, aes(x=factor(Month, levels = month.abb), y=AvgTransValue, fill = Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Avg Transaction Value in Millions")
+
+## group transactions per year and plot a normal distribution
+neftTransPerYear <- aggregate(neftDataMerged[,9:10],list(neftDataMerged$Year),sum)
+avgTransVals <- numeric()
+for(i in 1:nrow(neftTransPerYear)){
+  curRow <- neftTransPerYear[i,]
+  if(curRow[2]==0){
+    avgTransVals[i] <- 0
+  } else {
+    avgTransVals[i] <- (curRow[3]/curRow[2])*1000000
+  }
+}
+
+neftTransPerYear$AvgTransValue <- as.numeric(avgTransVals)
+
+qP <- qqPlot(neftTransPerYear$AvgTransValue, 
+        main = "Normality of Average Transaction Value Per Year",
+        xlab = "Normality", ylab = "Average Transaction Value Per Year",
+        col.lines = "blue"
+       )
+
+cat("\nSkewness is",skewness(neftTransPerYear$AvgTransValue))
+summary(neftTransPerYear$AvgTransValue)
 
 
 ################YASH ENDS ####################
 
 
 #Over months and over the years
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) 
+ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) +  labs(x="Year", y="Total Number of Transactions in Millions")
+ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) +  labs(x="Year", y="Total Value of Transactions in Millions")
 
 # By year and broken up by bank type to see how number of transactions have increased over years
-ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxns, fill=Sector)) + geom_bar(stat="sum")
+ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") +  labs(x="Year", y="Total Number of Transactions in Millions") 
+ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Year", y="Total Value of Transactions in Millions")
 #ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxnVal, fill=Type)) + geom_bar(stat="sum")
 #ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=AvgTxnVal, fill=Type)) + geom_bar(stat="sum")
 
