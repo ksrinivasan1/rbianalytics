@@ -1,10 +1,9 @@
 library(ggplot2)
 library(car)
 library(moments)
-
+library(gridExtra)
 setwd("D:/Personal/GMITE/BI_Git/trunk")
 
-#Kartik's analysis 
 source(file = paste(getwd(), "/src/RbiNeft.R", sep = "") )
 
 # Txn Info By year
@@ -24,9 +23,9 @@ tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, mean)
 tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, sd)
 
 # By month
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000)) + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank()) + labs(x="Month", y="Total Number of Transactions in Millions")
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000)) + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank()) + labs(x="Month", y="Total Value of Transactions in Millions")
-
+plot1 <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000)) + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank()) + labs(x="Month", y="Number of Transactions\n (millions)")
+plot2 <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000)) + geom_point(shape=1,alpha=1/10) + facet_wrap(~factor(Month, levels = month.abb)) + theme(axis.text.x=element_blank()) + labs(x="Month", y="Value of Transactions\n (millions)")
+grid.arrange(plot1, plot2, ncol=2)
 #myPlot <- ggplot2::ggplot(data=neftDataMerged, aes(x=Month, y=TotalTxnVal))
 #myPlot + geom_point(shape=1,alpha=1/10) + facet_wrap(~Month) + theme(axis.text.x=element_blank())
 
@@ -40,9 +39,10 @@ ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=
 
 #Over months
 #by number of transactions
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Total Number of Transactions in Millions")
+plot1 <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Number of Transactions\n (millions)")
 #by value of transactions
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Total Value of Transactions in Millions")
+plot2 <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Value of Transactions\n (millions)")
+grid.arrange(plot1, plot2, nrow=2)
 
 #################YASH STARTS ###########################
 # i think avg is better here
@@ -66,7 +66,7 @@ for(i in 1:nrow(neftTransPerSectorMonth)){
 
 neftTransPerSectorMonth$AvgTransValue <- as.numeric(avgTransVals)
 
-ggplot2::ggplot(data=neftTransPerSectorMonth, aes(x=factor(Month, levels = month.abb), y=AvgTransValue, fill = Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Avg Transaction Value in Millions")
+ggplot2::ggplot(data=neftTransPerSectorMonth, aes(x=factor(Month, levels = month.abb), y=AvgTransValue, fill = Sector)) + geom_bar(stat="sum") + labs(x="Month", y="Avg Transaction Value\n(millions)", title="Average number of transactions per month") + theme(plot.title = element_text(hjust = 0.5))
 
 ## group transactions per year and plot a normal distribution
 neftTransPerYear <- aggregate(neftDataMerged[,9:10],list(neftDataMerged$Year),sum)
@@ -96,12 +96,13 @@ summary(neftTransPerYear$AvgTransValue)
 
 
 #Over months and over the years
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) +  labs(x="Year", y="Total Number of Transactions in Millions")
-ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) +  labs(x="Year", y="Total Value of Transactions in Millions")
-
+plot1 <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) +  labs(x="Year", y="Number of Transactions\n(millions)")
+plot2 <- ggplot2::ggplot(data=neftDataMerged, aes(x=factor(Month, levels = month.abb), y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + facet_wrap(~Year) + theme(axis.text.x=element_blank()) +  labs(x="Year", y="Value of Transactions\n(millions)")
+grid.arrange(plot1, plot2, ncol=2)
 # By year and broken up by bank type to see how number of transactions have increased over years
-ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") +  labs(x="Year", y="Total Number of Transactions in Millions") 
-ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Year", y="Total Value of Transactions in Millions")
+plot1 <-ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxns/1000000, fill=Sector)) + geom_bar(stat="sum") +  labs(x="Year", y="Number of Transactions/n(millions)") 
+plot2 <- ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxnVal/1000000, fill=Sector)) + geom_bar(stat="sum") + labs(x="Year", y="Value of Transactions/n(millions)")
+grid.arrange(plot1, plot2, ncol=2)
 #ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=TotalTxnVal, fill=Type)) + geom_bar(stat="sum")
 #ggplot2::ggplot(data=neftDataMerged, aes(x=Year, y=AvgTxnVal, fill=Type)) + geom_bar(stat="sum")
 
