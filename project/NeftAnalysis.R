@@ -1,3 +1,4 @@
+#import the required packages
 library(ggplot2)
 library(car)
 library(moments)
@@ -28,14 +29,6 @@ tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, summary)
 tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, mean)
 tapply(neftDataMerged$TotalTxns, neftDataMerged$Year, sd)
 
-# Summary Measures By month
-tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Month, summary)
-tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Month, mean)
-tapply(neftDataMerged$TotalTxnVal, neftDataMerged$Month, sd)
-tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, summary)
-tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, mean)
-tapply(neftDataMerged$TotalTxns, neftDataMerged$Month, sd)
-
 
 # Find the summary measures of the Avg Transaction Value per Year
 summary(neftTransPerYear$AvgTransValue)
@@ -44,9 +37,9 @@ cat("\nStandard Deviation: ",sd(neftTransPerYear$AvgTransValue))
 
 # Plot Normal Distribution of Average Value of Transactions Per Year
 cat("\nGraph 2: Normality of Average Value of Transactions Per Year")
-qP <- qqPlot(neftTransPerYear$AvgTransValue, 
+qqPlot(neftTransPerYear$AvgTransValue, 
              main = "Normality of Average Transaction Value Per Year",
-             xlab = "Normality", ylab = "Average Transaction Value Per Year",
+             xlab = "Normality", ylab = "Avg Trans Val Per Year (millions)",
              col.lines = "blue"
 )
 

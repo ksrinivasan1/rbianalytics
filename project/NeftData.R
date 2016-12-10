@@ -50,7 +50,7 @@ neftTransPerSectorMonth$AvgTransValue <- as.numeric(avgTransVals)
 
 # Creating Data copy of Transactions Per Year 
 neftTransPerYear <- aggregate(neftDataMerged[,9:10],list(neftDataMerged$Year),sum)
-colnames(neftTransPerSectorMonth) <- c("Year", "TotalTrans", "TotalTransVal")
+colnames(neftTransPerYear) <- c("Year", "TotalTrans", "TotalTransVal")
 
 #calculate average transaction value
 avgTransVals <- numeric()
@@ -59,7 +59,7 @@ for(i in 1:nrow(neftTransPerYear)){
   if(curRow[2]==0){
     avgTransVals[i] <- 0
   } else {
-    avgTransVals[i] <- (curRow[3]/curRow[2])*1000000
+    avgTransVals[i] <- (curRow[3]/curRow[2])
   }
 }
 
